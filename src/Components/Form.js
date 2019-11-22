@@ -5,11 +5,11 @@ import { addAction } from '../actions/toDoAction'
 class Form extends Component {
   handleSubmit = e => {
     e.preventDefault();
-    const toDo = this.toDo.value;
+    const text = this.toDo.value;
     const id = Math.random()
     const isCompleted = false
     const data = {
-      toDo,
+      text,
       id,
       isCompleted
     }
@@ -18,7 +18,7 @@ class Form extends Component {
     this.toDo.value = ' '
   }
   render() {
-    
+
     return (
       <form onSubmit={this.handleSubmit}>
         <h2 className='text-center'
@@ -31,7 +31,7 @@ class Form extends Component {
               id='add-todo'
               type='text'
               className='form-control'
-              placeholder="What you have to do ???"
+              placeholder="What is your next plan ???"
               ref={(input) => this.toDo = input}
               required
             />

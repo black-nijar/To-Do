@@ -16,6 +16,7 @@ export const toDoReducer = (state = initState, action) => {
       return state.map(todo => todo.id === action.id ?
         { ...todo, isCompleted: !todo.isCompleted } : todo
       )
+
     default:
       return state
   }
