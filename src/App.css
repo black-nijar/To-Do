@@ -7,11 +7,25 @@
   justify-content: center;
   font-size: calc(20px);
   color: rgba(14, 14, 14, 0.993);
+  margin: auto;
 }
 .button-control {
   text-align: right;
-  border-block-end-style: 
 }
 .todo-text {
   text-align: left;
+  background-color: rgba(239, 244, 245, 0.616);
+}
+.btn-active{
+  margin-left:170px;
+}
+.btn-update{
+  margin-right: 20px;
+}
+.shadow{
+  margin-bottom: 30px;
+  margin: auto;
+}
+.todo-list {
+  margin-bottom: 10px;
 }

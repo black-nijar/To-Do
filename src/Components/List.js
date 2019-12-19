@@ -6,8 +6,10 @@ import {
   allAction,
   activeAction,
   completedAction,
-  setCurrentStateAction
+  setCurrentStateAction,
+  editText
 } from '../actions/toDoAction';
+import EditTodo from './EditTodo';
 
 class List extends Component {
   componentDidMount() {
@@ -34,7 +36,25 @@ class List extends Component {
     this.props.completed()
     this.props.setCurrentState('COMPLETED')
   }
+  handleEdit = todo => {
+    console.log('todo :', todo)
 
+    return (
+      <div>
+        <div>
+          {
+            todo.isEdit ? <EditTodo todo={todo} /> : null
+          }
+        </div>
+        <button
+          className='btn btn-outline-warning btn-sm'
+          onClick={() => this.props.editText(todo.id)}
+        >
+          Edit
+       </button>
+      </div>
+    )
+  }
   render() {
     const { todo } = this.props
     var currentList = []
@@ -50,24 +70,31 @@ class List extends Component {
     const List = currentList.length ? (
       currentList.map(todo => {
         return (
-          <div style={{ padding: '1em' }} key={todo.id} >
-            <div className='card' style={{ padding: '1em', width: '450px', margin: 'auto' }}>
+          <div key={todo.id} className='shadow card' style={{ padding: '1em', width: '410px', margin: 'auto' }}>
+            <div className=''>
               <h4 className='todo-text'>{todo.text}</h4>
-              <div className='button-control'>
-                <button className='btn btn-outline-danger'
-                  style={{ marginRight: '1em' }}
-                  onClick={() => this.props.remove(todo.id)}
-                >
-                  Delete
+              {this.handleEdit(todo)}
+              <hr />
+              <div className='btn-group'>
+                <div className='btn-remove'>
+                  <button className='btn btn-outline-danger btn-sm'
+                    style={{ marginRight: '1em' }}
+                    onClick={() => this.props.remove(todo.id)}
+                  >
+                    Delete
+                 </button>
+                </div>
+                <div className='btn-active'>
+                  <button className='btn btn-outline-success btn-sm'
+                    onClick={() => this.props.toggle(todo.id)}
+                  >
+                    {todo.isCompleted ? 'Completed' : 'Try to Complete'}
                   </button>
-                <button className='btn btn-outline-success'
-                  onClick={() => this.props.toggle(todo.id)}
-                >
-                  {todo.isCompleted ? 'Completed' : 'Try to Complete'}
-                </button>
+                </div>
               </div>
             </div>
           </div>
+
         )
       })
     ) : (
@@ -96,7 +123,7 @@ class List extends Component {
             Completed
           </button>
         </div>
-        <div style={{ paddingTop: '2em' }}>
+        <div className='todo-list' style={{ paddingTop: '2em' }}>
           {List}
         </div>
       </div>
@@ -119,7 +146,7 @@ const mapDispatchToProps = dispatch => {
     active: () => { dispatch(activeAction()) },
     completed: () => { dispatch(completedAction()) },
     setCurrentState: (currentState) => { dispatch(setCurrentStateAction(currentState)) },
-
+    editText: (id) => { dispatch(editText(id)) }
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(List)

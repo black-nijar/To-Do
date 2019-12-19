@@ -44,4 +44,18 @@ export const setCurrentStateAction = payload => dispatch => {
   })
 }
 
-
+export const editText = id => dispatch => {
+  dispatch({
+    type: 'EDIT_TODO',
+    id
+  })
+}
+export const updateText = (newText, id) => dispatch => {
+  dispatch({
+    type: 'UPDATE_TODO',
+    payload: {
+      newText,
+      id
+    }
+  })
+}
